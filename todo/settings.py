@@ -11,8 +11,11 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
+
 import sys
 import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,10 +28,10 @@ sys.path.insert(0, APPS_DIR)
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '+dmn9!0muhpq-m8u^iun6kgpve=y@7if0k^nsm@ky7z!b0d+6v'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -48,6 +51,7 @@ THRID_APPS = []
 
 PROJECT_APPS = [
     'core.apps.CoreConfig',
+    'tasks.apps.TasksConfig',
 ]
 
 
