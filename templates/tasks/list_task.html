@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+add_category - {{ block.super}}
+{% endblock title %}
+
+
+{% block body %}
+<br><br><br>
+<div class="container">
+   
+    <table class="table">
+        {% include 'partials/messages.html' %}
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">end_date</th>
+                <th scope="col">priority</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for task in tasks  %}
+            <tr>
+                <th scope="row">{{ task.id }}</th>
+                <td>{{ task.name }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.end_date }}</td>
+                <td>{{ task.get_priority_display }}</td>
+                <td>
+                    <a href="{% url 'tasks:edit_task' task.id %}" class="btn btn-primary btn-sm">Editar</a>
+                    <a href="{% url 'tasks:delete_task' task.id  %}" class="btn btn-danger btn-sm confirm-delete" title="Delete" data-toggle="modal" data-target="#confirmDeleteModal" id="deleteButton{{task.id}}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include 'partials/confirm_delete_modal.html' %}
+</div>
+{% endblock body %}

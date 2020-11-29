@@ -1,18 +1,79 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <title>Hello World</title>
+    <link rel="stylesheet" href="{% static 'css/select2.min.css' %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <title>
+        {% block title %}
+        Todo App
+        {% endblock title %}
+    </title>
 </head>
-<body>
-    <h1>Hello World</h1>
-    <div class="alert alert-primary" role="alert">
-        A simple primary alert—check it out!
-      </div>
 
-      <script src="{% static 'js/bootstrap.min.js' %}"></script>
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-xl">
+            <a class="navbar-brand" href="/">Todo App</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07XL"
+                aria-controls="navbarsExample07XL" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExample07XL">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown07XL" data-toggle="dropdown"
+                            aria-expanded="false">Menu</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown07XL">
+                            <a class="dropdown-item" href="{% url 'tasks:add_category' %}">Adcionar Categoria</a>
+                            <a class="dropdown-item" href="{% url 'tasks:list_category' %}">Listar Categoria</a>
+                            <a class="dropdown-item" href="{% url 'tasks:add_task' %}">Adcionar Tarefa</a>
+                            <a class="dropdown-item" href="{% url 'tasks:list_task' %}">Listar Tarefa</a>
+                        </div>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-md-0">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                </form>
+            </div>
+        </div>
+    </nav>
+    {% block body %}
+
+    {% endblock body %}
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{% static 'js/select2.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script>
+        $(document).on('click', '.confirm-delete', function () {
+            $("#confirmDeleteModal").attr("caller-id", $(this).attr("id"));
+        });
+
+        $(document).on('click', '#confirmDeleteButtonModal', function () {
+            var caller = $("#confirmDeleteButtonModal").closest(".modal").attr("caller-id");
+            window.location = $("#".concat(caller)).attr("href");
+        });
+
+        $("#id_end_date").datepicker({
+            dateFormat: "dd/mm/yy"
+        });
+
+        $(document).ready(function () {
+            $('#id_category').select2();
+        });
+
+
+
+
+    </script>
+
 </body>
+
 </html>

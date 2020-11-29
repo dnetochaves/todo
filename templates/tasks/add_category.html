@@ -1,11 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Begin Tasks</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+add_category - {{ block.super}}
+{% endblock title %}
+
+
+{% block body %}
+<hr>
+<div class="container">
+    {% include 'partials/messages.html' %}
+    <form action="." method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.name.id_for_label }}">Nome:</label>
+            {{form.name | add_class:"form-control"| attr:"autofocus"}}
+        </div>
+        <divx class="form-group">
+            <label for="{{ form.description.id_for_label }}">Descrição:</label>
+            {{form.description | add_class:"form-control"}}
+        </div>
+       <hr> 
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+</div>
+
+{% endblock body %}
