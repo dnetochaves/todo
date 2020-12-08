@@ -9,6 +9,7 @@ add_category - {{ block.super}}
 {% block body %}
 <hr>
 <div class="container">
+    <br><br>
     {% include 'partials/messages.html' %}
     <form action="." method="post">
         {% csrf_token %}
