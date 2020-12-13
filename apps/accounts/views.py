@@ -63,7 +63,7 @@ def password_change(request):
             form.save()
             update_session_auth_hash(request, form.user)
     else:
-        messages.error(request, 'Deu merda na alteração da senha')  
+        messages.warning(request, 'Deu merda na alteração da senha')  
     form = PasswordChangeForm(user=request.user)  
     context['form'] = form
     return render(request, template_name, context)
