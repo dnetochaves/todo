@@ -1,18 +1,20 @@
 from django import forms
-from django.contrib.auth.models import User
 from django.forms import ModelForm
+from django.contrib.auth.models import User
+
 from .models import UserProfile
 
 
+
 class UserForm(forms.ModelForm):
-    class meta:
+    class Meta:
         model = User
-        fields = ['first_name', 'email', 'password']
+        fields = ['first_name', 'last_name', 'username', 'password', 'email']
 
 class UserFormChangeInformation(forms.ModelForm):
-    class meta:
+    class Meta:
         model = User
-        fields = ['first_name', 'Last_name', 'email']
+        fields = ['first_name', 'last_name', 'email']
 
 class UserProfileForm(forms.ModelForm):
     class Meta:

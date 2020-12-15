@@ -17,20 +17,21 @@ def begin(request):
     return render(request, 'accounts/begin.html', {})
 
 #Função com probleba 
-'''
+
 def add_user(request):
     template_name = 'accounts/add_user.html'
-    context = {}
+    context = {} 
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
             f = form.save(commit=False)
             f.set_password(f.password)
             f.save()
+            messages.success(request, 'Usuário salvo com sucesso !!')
     form = UserForm()
     context['form'] = form
     return render(request, template_name, context)
-'''
+
 
 class RegisterUser(generic.CreateView):
     form_class = UserCreationForm
