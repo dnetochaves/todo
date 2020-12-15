@@ -5,8 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <title>
@@ -17,9 +18,9 @@
 </head>
 
 <body>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar fixed-top navbar-expand-lg bg" style="background-color: #3b9ce0;>
         <div class="container-xl">
-            <a class="navbar-brand" href="/">Todo App</a>
+            <a class="navbar-brand" href="/">Todo App</a>   
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07XL"
                 aria-controls="navbarsExample07XL" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -38,26 +39,41 @@
                         </div>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-md-0">
+                <form class="form-inline my-2 my-md-0" style="margin-right:5px">
                     <input class="form-control" type="text" placeholder="Search" aria-label="Search">
                 </form>
-                
+
                 {% if user.is_authenticated %}
                 <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+
+                        {% if user.profile.photo.url %}
+                        <img src="{{ user.profile.photo.url }}" class="rounded-circle" width="50px" height="50px"
+                            alt="">
+                        {% else %}
+                        <img src="{% static 'download_8RstuUP.png' %}" class="rounded-circle" width="50px" height="50px"
+                            alt="">
+
+                        {% endif %}
+
+
+
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown07XL" data-toggle="dropdown"
                             aria-expanded="false">{{ user.username }}</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown07XL">
-                            <a class="dropdown-item" href="{% url 'tasks:add_category' %}">Perfil</a>
+                            <a class="dropdown-item" href="{% url 'accounts:list_user_profile' %}">Perfil</a>
                             <a class="dropdown-item" href="{% url 'accounts:password_change' %}">Trocar Senha</a>
+                            <a class="dropdown-item" href="{% url 'accounts:change_user_information' user.username %}">Dados</a>
                             <a class="dropdown-item" href="{% url 'accounts:user_logout' %}">Sair</a>
                         </div>
                     </li>
                 </ul>
-                    
+
                 {% endif %}
-                    
-               
+
+
             </div>
         </div>
     </nav>

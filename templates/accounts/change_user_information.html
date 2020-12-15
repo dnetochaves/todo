@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+{% block title %}
+Novo Usuário - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+<<br><br><br>
+<div class="container">
+  <h1>Crie sua conta</h1>
+  <form action="." method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input class="btn btn-primary" type="submit" value="Registrar">
+  </form>
+</div>>
+{% endblock body %}
+

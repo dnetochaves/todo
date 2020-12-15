@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .forms import UserForm
+from .forms import UserForm, UserProfileForm, UserFormChangeInformation
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.urls import reverse, reverse_lazy
@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
+from .models import UserProfile
 
 # Create your views here.
 @login_required(login_url='/accounts/user_login/')
@@ -67,3 +69,56 @@ def password_change(request):
     form = PasswordChangeForm(user=request.user)  
     context['form'] = form
     return render(request, template_name, context)
+
+def add_user_profile(request):
+    template_name = 'accounts/add_user_profile.html'
+    context = {}
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            f = form.save()
+            f.user = request.user
+            f.save()
+            messages.success(request, 'Perfil adicionada com sucesso !!')
+    form = UserProfileForm()
+    context['form'] = form
+    return render(request, template_name, context)
+
+def list_user_profile(request):
+    template_name = 'accounts/list_user_profile.html'
+    context = {}
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        profile = None
+    context['profile'] = profile
+    return render(request, template_name, context)
+
+def change_user_profile(request, username):
+    template_name = 'accounts/add_user_profile.html'
+    context = {}
+    profile = UserProfile.objects.get(user__username=username)
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Perfil atualizado com sucesso!!')
+    form = UserProfileForm(instance=profile)
+    context['form'] = form
+    return render(request, template_name, context)
+
+def change_user_information(request):
+    template_name = 'accounts/change_user_information.html'
+    context = {}
+    user = User.objects.get(username=f_username)
+    if request.method == 'POST':
+        form = UserFormChangeInformation(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Informações atualizadoas com sucesso!!')
+    form = UserFormChangeInformation(instance=user)
+    context['form'] = form
+    
+    return render(request, trmplate_name, context)
+   
+   
