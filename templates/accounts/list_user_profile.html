@@ -8,11 +8,9 @@ Novo Usuário - {{ block.super }}
 {% endblock title %}
 
 {% block body %}
-<br><br><br><br><br>
 
 {% if profile %}
 <div class="container">
-    <h2>Perfil</h2>
     <hr>
     <div class="media">
         <img class="mr-3" src="{{ user.profile.photo.url }}" alt="Generic placeholder image">
@@ -23,7 +21,7 @@ Novo Usuário - {{ block.super }}
         </div>
     </div>
     <hr>
-    <a class="btn btn-primary" href="{% url 'accounts:change_user_profile' user.username %}">Alterar Perfil1</a>
+    <a class="btn btn-primary" href="{% url 'accounts:change_user_profile' user.username %}">Alterar Perfil</a>
     {% else %}
     <h2>Crie seu perfil</h2>
      <a class="btn btn-primary" href="{% url 'accounts:add_user_profile' %}">Alterar Perfil2</a>

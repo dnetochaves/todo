@@ -94,15 +94,16 @@ body {
 <main class="form-signin">
   <form method="POST" action="user_login">
       {% csrf_token %}
-    <img class="mb-4" src="{% static 'img/task.png' %}" alt="" width="72" height="57">
+    <img class="mb-4 rounded-circle" src="{% static 'img/task.png' %}" alt="" width="72" height="57">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
     <label for="username" class="visually-hidden">Username</label>
     <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
-    <hr>
+
     <label for="password" class="visually-hidden">Password</label>
     <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
    
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar</button>
+    <a class="w-100 btn btn-lg btn-success" href="{% url 'accounts:add_user' %}">Criar uma conta</a>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
   </form>
 </main>

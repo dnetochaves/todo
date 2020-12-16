@@ -7,9 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/select2.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <title>
         {% block title %}
         Todo App
@@ -17,10 +16,10 @@
     </title>
 </head>
 
-<body>
-    <nav class="navbar fixed-top navbar-expand-lg bg" style="background-color: #3b9ce0;>
+<body style="margin-top:67px">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top border" style="background-color:  #ffffff;">
         <div class="container-xl">
-            <a class="navbar-brand" href="/">Todo App</a>   
+            <a class="navbar-brand" href="/">Todo App</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07XL"
                 aria-controls="navbarsExample07XL" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -56,8 +55,6 @@
 
                         {% endif %}
 
-
-
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown07XL" data-toggle="dropdown"
@@ -65,8 +62,10 @@
                         <div class="dropdown-menu" aria-labelledby="dropdown07XL">
                             <a class="dropdown-item" href="{% url 'accounts:list_user_profile' %}">Perfil</a>
                             <a class="dropdown-item" href="{% url 'accounts:password_change' %}">Trocar Senha</a>
-                            <a class="dropdown-item" href="{% url 'accounts:change_user_information' user.username %}">Dados</a>
+                            <a class="dropdown-item"
+                                href="{% url 'accounts:change_user_information' user.username %}">Dados</a>
                             <a class="dropdown-item" href="{% url 'accounts:user_logout' %}">Sair</a>
+                            <a class="dropdown-item" href="{% url 'accounts:add_user' %}">add_user</a>
                         </div>
                     </li>
                 </ul>

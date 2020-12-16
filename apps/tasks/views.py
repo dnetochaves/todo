@@ -2,13 +2,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import CategoryForm, TaskForm
 from django.contrib import messages
 from .models import Category, Tasks
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-
+@login_required(login_url='/accounts/user_login')
 def begin(request):
     return render(request, 'tasks/add_category.html', {})
 
-
+@login_required(login_url='/accounts/user_login')
 def add_category(request):
     template_name = 'tasks/add_category.html'
     context = {}
@@ -23,7 +24,7 @@ def add_category(request):
     context['form'] = form
     return render(request, template_name, context)
 
-
+@login_required(login_url='/accounts/user_login')
 def list_category(request):
     template_name = 'tasks/list_categories.html'
     categories = Category.objects.filter(owner=request.user)
@@ -32,7 +33,7 @@ def list_category(request):
     }
     return render(request, template_name, context)
 
-
+@login_required(login_url='/accounts/user_login')
 def edit_category(request, id_category):
     template_name = 'tasks/add_category.html'
     context = {}
@@ -41,20 +42,24 @@ def edit_category(request, id_category):
         form = CategoryForm(request.POST, instance=category)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Categoria editada com sucesso')
             return redirect('tasks:list_category')
     form = CategoryForm(instance=category)
     context['form'] = form
     return render(request, template_name, context)
 
+@login_required(login_url='/accounts/user_login')
 def delete_category(request, id_category):
     category = Category.objects.get(id=id_category)
     if category.owner == request.user:
         category.delete()
+        messages.success(request, 'Categoria excluida com sucesso')
     else:
         messages.error(request, 'Você não tem permissão para excluir essa categoria')
         return redirect('tasks:list_category')
     return redirect('tasks:list_category')
 
+@login_required(login_url='/accounts/user_login')
 def add_task(request):
     template_name = 'tasks/add_task.html'
     context = {}
@@ -72,7 +77,7 @@ def add_task(request):
     context['form'] = form
     return render(request, template_name, context)
 
-
+@login_required(login_url='/accounts/user_login')
 def list_task(request):
     template_name = 'tasks/list_task.html'
     tasks = Tasks.objects.filter(owner=request.user).exclude(status='CD')
@@ -81,7 +86,7 @@ def list_task(request):
     }
     return render(request, template_name, context)
 
-
+@login_required(login_url='/accounts/user_login')
 def edit_task(request, id_task):
     template_name = 'tasks/add_task.html'
     context = {}
@@ -95,6 +100,7 @@ def edit_task(request, id_task):
     context['form'] = form
     return render(request, template_name, context)
 
+@login_required(login_url='/accounts/user_login')
 def delete_task(request, id_task):
     task = Tasks.objects.get(id=id_task)
     if task.owner == request.user:

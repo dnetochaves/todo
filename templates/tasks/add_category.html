@@ -7,23 +7,28 @@ add_category - {{ block.super}}
 
 
 {% block body %}
-<hr>
-<div class="container">
-    <br><br>
-    {% include 'partials/messages.html' %}
-    <form action="." method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="{{ form.name.id_for_label }}">Nome:</label>
+{% include 'partials/messages.html' %}
+
+
+<form action="." method="post">
+    <br>
+    <div class="container-fluid">
+    {% csrf_token %}
+    <div class="row mb-3">
+        <label for="{{ form.name.id_for_label }}" class="col-sm-2 col-form-label">Nome:</label>
+        <div class="col-sm-10">
             {{form.name | add_class:"form-control"| attr:"autofocus"}}
         </div>
-        <divx class="form-group">
-            <label for="{{ form.description.id_for_label }}">Descrição:</label>
+    </div>
+    <div class="row mb-3">
+        <label for="{{ form.description.id_for_label }}" class="col-sm-2 col-form-label">Descrição:</label>
+        <div class="col-sm-10">
             {{form.description | add_class:"form-control"}}
         </div>
-       <hr> 
-        <button type="submit" class="btn btn-primary">Salvar</button>
-    </form>
+    </div>
+   
+   
+    <button type="submit" class="btn btn-primary">Adcionar</button>
+</form>
 </div>
-
 {% endblock body %}
